@@ -16,11 +16,9 @@ type Block struct {
 
 func hashfunction(block Block) string {
 
-	Input := string(block.Index) + block.PrevHash + block.Timestamp
-	h := sha256.New()
-	h.Write([]byte(Input))
-	Output := h.Sum(nil)
-	return hex.EncodeToString(Output)
+	header := string(block.Index) + block.PrevHash + block.Timestamp
+	hash_byte := sha256.Sum256([]byte(header))
+	return hex.EncodeToString(hash_byte[:])
 }
 
 func genblock(prevblock Block) Block {
